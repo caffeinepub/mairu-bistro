@@ -5,7 +5,7 @@ export function LocationSection() {
   return (
     <section
       id="location"
-      className="pt-28 pb-24 md:pt-36 md:pb-32 px-4 sm:px-6 lg:px-8 bg-background relative section-fade-top-surface"
+      className="py-24 md:py-32 px-4 sm:px-6 lg:px-8 bg-background relative"
     >
       <div className="max-w-7xl mx-auto">
         {/* Section header */}
@@ -17,9 +17,9 @@ export function LocationSection() {
           className="text-center mb-12"
         >
           <div className="flex items-center justify-center gap-3 mb-5">
-            <div className="h-px w-10 bg-foreground/10" />
+            <div className="h-px w-10 bg-terracotta/30" />
             <span className="eyebrow">Find Us</span>
-            <div className="h-px w-10 bg-foreground/10" />
+            <div className="h-px w-10 bg-terracotta/30" />
           </div>
           <h2 className="heading-section font-playfair text-4xl sm:text-5xl font-bold text-foreground">
             Come Visit Us
@@ -33,26 +33,26 @@ export function LocationSection() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7 }}
-            className="flex flex-col gap-6"
+            className="flex flex-col gap-5"
           >
-            <div className="bg-surface border border-luxury rounded-sm p-6">
+            <div className="bg-surface border border-luxury rounded-sm p-7">
               <h3 className="font-playfair text-2xl font-semibold text-foreground mb-6">
-                Mairu Bistro
+                Sky Salt Cafe &amp; Bistro
               </h3>
 
               <div className="flex flex-col gap-5">
                 <div className="flex items-start gap-4">
-                  <div className="w-9 h-9 rounded-sm bg-surface-elevated flex items-center justify-center flex-shrink-0 mt-0.5">
-                    <MapPin size={15} className="text-olive" />
+                  <div className="w-9 h-9 rounded-sm bg-terracotta/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                    <MapPin size={15} className="text-terracotta" />
                   </div>
                   <div>
-                    <p className="font-inter text-sm font-medium text-foreground mb-1">
+                    <p className="font-dm text-sm font-semibold text-foreground mb-1">
                       Address
                     </p>
-                    <p className="font-inter text-sm text-muted-foreground leading-relaxed">
-                      815-A, Road Number 41,
+                    <p className="font-dm text-sm text-muted-foreground leading-relaxed">
+                      Road No. 36, CBI Colony,
                       <br />
-                      CBI Colony, Jubilee Hills,
+                      Jubilee Hills,
                       <br />
                       Hyderabad, Telangana 500033
                     </p>
@@ -60,34 +60,34 @@ export function LocationSection() {
                 </div>
 
                 <div className="flex items-start gap-4">
-                  <div className="w-9 h-9 rounded-sm bg-surface-elevated flex items-center justify-center flex-shrink-0 mt-0.5">
-                    <Phone size={15} className="text-olive" />
+                  <div className="w-9 h-9 rounded-sm bg-terracotta/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                    <Phone size={15} className="text-terracotta" />
                   </div>
                   <div>
-                    <p className="font-inter text-sm font-medium text-foreground mb-1">
+                    <p className="font-dm text-sm font-semibold text-foreground mb-1">
                       Phone
                     </p>
                     <a
-                      href="tel:+919107146999"
-                      className="font-inter text-sm text-gold hover:text-gold/80 transition-colors"
+                      href="tel:+918919296510"
+                      className="font-dm text-sm text-terracotta hover:text-terracotta/80 transition-colors"
                     >
-                      +91 91071 46999
+                      +91 89192 96510
                     </a>
                   </div>
                 </div>
 
                 <div className="flex items-start gap-4">
-                  <div className="w-9 h-9 rounded-sm bg-surface-elevated flex items-center justify-center flex-shrink-0 mt-0.5">
-                    <Clock size={15} className="text-olive" />
+                  <div className="w-9 h-9 rounded-sm bg-terracotta/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                    <Clock size={15} className="text-terracotta" />
                   </div>
                   <div>
-                    <p className="font-inter text-sm font-medium text-foreground mb-1">
+                    <p className="font-dm text-sm font-semibold text-foreground mb-1">
                       Hours
                     </p>
-                    <p className="font-inter text-sm text-muted-foreground">
+                    <p className="font-dm text-sm text-muted-foreground">
                       Monday – Sunday
                       <br />
-                      11:00 AM – 11:45 PM
+                      11:00 AM – 11:00 PM
                     </p>
                   </div>
                 </div>
@@ -95,11 +95,11 @@ export function LocationSection() {
 
               <div className="mt-6 pt-5 border-t border-luxury">
                 <a
-                  href="https://maps.google.com/?q=815-A+Road+Number+41+CBI+Colony+Jubilee+Hills+Hyderabad+500033"
+                  href="https://maps.google.com/?q=Sky+Salt+Cafe+Bistro+Road+No+36+CBI+Colony+Jubilee+Hills+Hyderabad"
                   target="_blank"
                   rel="noopener noreferrer"
                   data-ocid="location.map_marker"
-                  className="inline-flex items-center gap-2 font-inter text-sm font-medium text-gold hover:text-gold/80 transition-colors group"
+                  className="inline-flex items-center gap-2 font-dm text-sm font-medium text-terracotta hover:text-terracotta/80 transition-colors group"
                 >
                   <Navigation size={14} />
                   Get Directions
@@ -110,14 +110,14 @@ export function LocationSection() {
               </div>
             </div>
 
-            {/* Services quick info */}
+            {/* Services */}
             <div className="grid grid-cols-3 gap-3">
-              {["Dine-in", "Takeaway", "No-contact Delivery"].map((service) => (
+              {["Dine-in", "Takeaway", "Delivery"].map((service) => (
                 <div
                   key={service}
-                  className="bg-surface border border-luxury rounded-sm p-3 text-center"
+                  className="bg-surface border border-luxury rounded-sm p-3 text-center hover:border-terracotta/40 transition-colors duration-200"
                 >
-                  <p className="font-inter text-xs text-muted-foreground leading-tight">
+                  <p className="font-dm text-xs text-muted-foreground">
                     {service}
                   </p>
                 </div>
@@ -134,14 +134,14 @@ export function LocationSection() {
             className="overflow-hidden rounded-sm border border-luxury"
           >
             <iframe
-              title="Mairu Bistro Location"
-              src="https://www.google.com/maps?q=815-A+Road+Number+41+CBI+Colony+Jubilee+Hills+Hyderabad+Telangana+500033&output=embed"
+              title="Sky Salt Cafe & Bistro Location"
+              src="https://www.google.com/maps?q=Sky+Salt+Cafe+Bistro+Road+Number+36+CBI+Colony+Jubilee+Hills+Hyderabad+Telangana+500033&output=embed"
               width="100%"
               height="450"
               style={{
                 border: 0,
                 display: "block",
-                filter: "invert(90%) hue-rotate(180deg)",
+                filter: "invert(88%) hue-rotate(180deg) saturate(0.85)",
               }}
               allowFullScreen
               loading="lazy"

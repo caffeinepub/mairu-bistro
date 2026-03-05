@@ -3,73 +3,68 @@ import { type Variants, motion } from "motion/react";
 const dishes = [
   {
     id: 1,
-    name: "Korean Paneer Bao",
-    description: "Fluffy steamed bao with golden pan-fried paneer & sriracha",
-    price: "₹₹₹",
-    image: "/assets/generated/dish-korean-paneer-bao.dim_600x600.jpg",
+    name: "Peri Peri Chicken Pizza",
+    descriptor: "Fiery, tangy, irresistible",
+    image: "/assets/generated/skysalt-pizza.dim_600x600.jpg",
     tag: "Signature",
   },
   {
     id: 2,
-    name: "Korean Chicken Bao",
-    description: "Tender braised chicken, kimchi slaw & gochujang in soft bao",
-    price: "₹₹₹",
-    image: "/assets/generated/dish-korean-chicken-bao.dim_600x600.jpg",
+    name: "Chicken Dim Sum",
+    descriptor: "Steamed to perfection",
+    image: "/assets/generated/skysalt-dimsum.dim_600x600.jpg",
     tag: "Popular",
   },
   {
     id: 3,
-    name: "Gunpowder Chicken",
-    description: "Crispy chicken tossed in our signature gunpowder spice blend",
-    price: "₹₹₹",
-    image: "/assets/generated/dish-gunpowder-chicken.dim_600x600.jpg",
-    tag: "Spicy",
-  },
-  {
-    id: 4,
-    name: "Mairu Special Fried Rice",
-    description: "Wok-tossed aromatic fried rice, chef's secret recipe",
-    price: "₹₹₹",
-    image: "/assets/generated/dish-special-fried-rice.dim_600x600.jpg",
-    tag: "Chef's Choice",
-  },
-  {
-    id: 5,
-    name: "Green Garden Pasta",
-    description: "Vibrant green pesto pasta with seasonal garden vegetables",
-    price: "₹₹₹",
-    image: "/assets/generated/dish-green-garden-pasta.dim_600x600.jpg",
+    name: "White Sauce Pasta",
+    descriptor: "Creamy, rich, comforting",
+    image: "/assets/generated/skysalt-pasta-white.dim_600x600.jpg",
     tag: "Vegetarian",
   },
   {
+    id: 4,
+    name: "Jalapeño Kebabs",
+    descriptor: "Bold spice, tender bite",
+    image: "/assets/generated/skysalt-kebabs.dim_600x600.jpg",
+    tag: "Spicy",
+  },
+  {
+    id: 5,
+    name: "Alfredo Penne Pasta",
+    descriptor: "Classic Italian soul",
+    image: "/assets/generated/skysalt-alfredo.dim_600x600.jpg",
+    tag: "Chef's Pick",
+  },
+  {
     id: 6,
-    name: "Berry Milkshake",
-    description: "House-blended mixed berry shake with fresh cream",
-    price: "₹₹",
-    image: "/assets/generated/dish-berry-milkshake.dim_600x600.jpg",
+    name: "Mocha",
+    descriptor: "The perfect ending",
+    image: "/assets/generated/skysalt-mocha.dim_600x600.jpg",
     tag: "Drinks",
   },
 ];
 
 const containerVariants: Variants = {
   hidden: {},
-  visible: {
-    transition: {
-      staggerChildren: 0.12,
-    },
-  },
+  visible: { transition: { staggerChildren: 0.1 } },
 };
 
 const cardVariants: Variants = {
   hidden: { opacity: 0, y: 40 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, ease: [0.25, 0.1, 0.25, 1] },
+  },
 };
 
 export function MenuSection() {
   return (
     <section
       id="menu"
-      className="py-24 md:py-32 px-4 sm:px-6 lg:px-8 bg-surface"
+      className="py-24 md:py-32 px-4 sm:px-6 lg:px-8"
+      style={{ backgroundColor: "oklch(0.09 0.010 55)" }}
     >
       <div className="max-w-7xl mx-auto">
         {/* Section header */}
@@ -78,21 +73,24 @@ export function MenuSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="text-center mb-10"
         >
           <div className="flex items-center justify-center gap-3 mb-5">
-            <div className="h-px w-10 bg-foreground/10" />
+            <div className="h-px w-10 bg-terracotta/30" />
             <span className="eyebrow">What We Serve</span>
-            <div className="h-px w-10 bg-foreground/10" />
+            <div className="h-px w-10 bg-terracotta/30" />
           </div>
-
-          <h2 className="heading-section font-playfair text-4xl sm:text-5xl md:text-6xl font-bold text-foreground mb-4">
-            Signature Dishes
+          <h2
+            className="heading-section font-playfair font-bold text-foreground mb-4 text-balance"
+            style={{ fontSize: "clamp(2.2rem, 5.5vw, 3.75rem)" }}
+          >
+            Our Signature Dishes
           </h2>
-          <p className="font-inter text-muted-foreground max-w-md mx-auto">
-            Every dish is crafted with intention — fusion flavors that tell a
-            story of culture, spice, and love.
+          <p className="font-dm text-muted-foreground max-w-md mx-auto text-sm md:text-base">
+            Every dish is crafted with fresh ingredients and balanced flavors —
+            food that speaks to the soul.
           </p>
+          <div className="section-rule max-w-[100px] mx-auto mt-7" />
         </motion.div>
 
         {/* Dishes grid */}
@@ -101,45 +99,73 @@ export function MenuSection() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-60px" }}
-          className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6"
         >
           {dishes.map((dish) => (
-            <motion.div
+            <motion.article
               key={dish.id}
               variants={cardVariants}
               data-ocid={`menu.item.${dish.id}`}
-              className="group bg-background border border-luxury rounded-sm overflow-hidden hover:-translate-y-1 hover:shadow-[0_12px_40px_rgba(0,0,0,0.5)] transition-all duration-300"
+              whileHover={{ scale: 1.025, y: -6 }}
+              transition={{ duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
+              className="group bg-surface border border-luxury rounded-sm overflow-hidden cursor-default relative"
+              style={{
+                boxShadow: "0 4px 24px rgba(0,0,0,0.3)",
+              }}
             >
+              {/* Left-edge terracotta inset on hover */}
+              <div className="absolute left-0 top-0 bottom-0 w-0.5 bg-terracotta/0 group-hover:bg-terracotta/70 transition-all duration-400 z-10 rounded-l-sm" />
+
               {/* Image */}
               <div className="relative overflow-hidden aspect-square">
                 <img
                   src={dish.image}
                   alt={dish.name}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  className="w-full h-full object-cover"
+                  style={{
+                    transition:
+                      "transform 0.75s cubic-bezier(0.25, 0.1, 0.25, 1)",
+                    transform: "scale(1)",
+                  }}
+                  onMouseEnter={(e) => {
+                    (e.currentTarget as HTMLImageElement).style.transform =
+                      "scale(1.07)";
+                  }}
+                  onMouseLeave={(e) => {
+                    (e.currentTarget as HTMLImageElement).style.transform =
+                      "scale(1)";
+                  }}
                   loading="lazy"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-background/70 via-transparent to-transparent" />
+                {/* Gradient overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-transparent" />
                 {/* Tag badge */}
-                <span className="absolute top-3 left-3 font-inter text-[10px] font-semibold px-2.5 py-1 bg-background/80 backdrop-blur-sm text-muted-foreground border border-luxury rounded-sm tracking-widest uppercase">
+                <span className="absolute top-3 left-3 font-dm text-[10px] font-semibold px-2.5 py-1 bg-black/70 backdrop-blur-sm text-white/75 border border-white/10 rounded-sm tracking-widest uppercase">
                   {dish.tag}
                 </span>
               </div>
 
               {/* Content */}
-              <div className="p-4 md:p-5">
-                <div className="flex items-start justify-between gap-2 mb-2">
-                  <h3 className="heading-section font-playfair text-base md:text-lg font-semibold text-foreground leading-tight">
-                    {dish.name}
-                  </h3>
-                  <span className="font-inter text-xs font-medium text-muted-foreground/70 flex-shrink-0 mt-0.5 tracking-wider">
-                    {dish.price}
-                  </span>
-                </div>
-                <p className="font-inter text-xs md:text-sm text-muted-foreground leading-[1.7]">
-                  {dish.description}
+              <div className="p-5 pb-6 relative">
+                {/* Editorial index number — background motif */}
+                <span className="card-index absolute bottom-2 right-3 leading-none select-none pointer-events-none">
+                  {String(dish.id).padStart(2, "0")}
+                </span>
+
+                <h3
+                  className="font-playfair font-semibold text-foreground leading-tight mb-2 text-balance"
+                  style={{ fontSize: "clamp(1.05rem, 1.8vw, 1.2rem)" }}
+                >
+                  {dish.name}
+                </h3>
+                <p
+                  className="font-dm text-muted-foreground/70 leading-snug"
+                  style={{ fontSize: "0.8rem", fontStyle: "italic" }}
+                >
+                  {dish.descriptor}
                 </p>
               </div>
-            </motion.div>
+            </motion.article>
           ))}
         </motion.div>
 
@@ -151,8 +177,8 @@ export function MenuSection() {
           transition={{ duration: 0.5, delay: 0.2 }}
           className="text-center mt-12"
         >
-          <p className="font-inter text-muted-foreground text-sm mb-4">
-            And much more awaits you at Mairu Bistro
+          <p className="font-dm text-muted-foreground text-sm mb-4">
+            And many more seasonal favorites at Sky Salt Cafe &amp; Bistro
           </p>
           <button
             type="button"
@@ -161,7 +187,7 @@ export function MenuSection() {
                 .querySelector("#reservation")
                 ?.scrollIntoView({ behavior: "smooth" });
             }}
-            className="font-inter text-sm font-medium px-6 py-3 border border-luxury text-muted-foreground rounded-sm hover:border-gold hover:text-gold transition-all duration-200"
+            className="font-dm text-sm font-medium px-7 py-3 border border-luxury text-muted-foreground rounded-sm hover:border-terracotta hover:text-terracotta transition-all duration-200"
           >
             Reserve Your Table →
           </button>

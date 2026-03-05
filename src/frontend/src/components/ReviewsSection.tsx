@@ -4,43 +4,27 @@ import { type Variants, motion } from "motion/react";
 const reviews = [
   {
     id: 1,
-    name: "Priya S.",
+    name: "Priya R.",
     rating: 5,
-    text: "The ambience is absolutely stunning! Loved the outdoor seating with all the plants. Korean Paneer Bao was a dream — perfectly fluffy and flavourful!",
+    text: "The food is absolutely divine. The peri peri pizza was a game-changer and the outdoor seating was so romantic! Perfect place for an evening date.",
     date: "January 2025",
-    initials: "PS",
+    initials: "PR",
   },
   {
     id: 2,
-    name: "Rahul M.",
+    name: "Arjun S.",
     rating: 5,
-    text: "Came here for a date night and it was perfect. The staff was warm, food was amazing. The lighting creates such a romantic mood. Will definitely be back!",
-    date: "December 2024",
-    initials: "RM",
+    text: "Best cafe in Jubilee Hills! The ambience is perfect for dates and the mocha is heavenly. Loved the cozy vibe and the warm string lights outside.",
+    date: "February 2025",
+    initials: "AS",
   },
   {
     id: 3,
-    name: "Ananya K.",
-    rating: 4,
-    text: "Great fusion food and cozy vibes. The Berry Milkshake is a must-try. Service was a tad slow but totally worth the wait. Atmosphere makes up for everything!",
-    date: "February 2025",
-    initials: "AK",
-  },
-  {
-    id: 4,
-    name: "Vikram T.",
+    name: "Sneha M.",
     rating: 5,
-    text: "Gunpowder Chicken was absolutely fire! Love the LGBTQ+ friendly atmosphere. Feels very inclusive and welcoming. One of the best bistros in Hyderabad!",
-    date: "January 2025",
-    initials: "VT",
-  },
-  {
-    id: 5,
-    name: "Sneha R.",
-    rating: 5,
-    text: "Hidden gem in Jubilee Hills. The green garden seating is magical in the evening. Highly recommend Mairu Special Fried Rice — comfort food at its finest!",
+    text: "Love this place! Great vibes, fresh food, and super friendly staff. The jalapeño kebabs are a must-try. Will definitely come back soon!",
     date: "March 2025",
-    initials: "SR",
+    initials: "SM",
   },
 ];
 
@@ -51,7 +35,11 @@ const containerVariants: Variants = {
 
 const cardVariants: Variants = {
   hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.55, ease: [0.25, 0.1, 0.25, 1] },
+  },
 };
 
 function StarRating({ count }: { count: number }) {
@@ -60,9 +48,11 @@ function StarRating({ count }: { count: number }) {
       {(["s1", "s2", "s3", "s4", "s5"] as const).map((key, i) => (
         <Star
           key={key}
-          size={12}
+          size={11}
           className={
-            i < count ? "text-gold fill-gold" : "text-muted-foreground/30"
+            i < count
+              ? "text-terracotta fill-terracotta"
+              : "text-muted-foreground/30"
           }
         />
       ))}
@@ -74,40 +64,66 @@ export function ReviewsSection() {
   return (
     <section
       id="reviews"
-      className="pt-28 pb-24 md:pt-36 md:pb-32 px-4 sm:px-6 lg:px-8 bg-surface relative section-fade-top"
+      className="py-24 md:py-32 px-4 sm:px-6 lg:px-8 relative overflow-hidden"
+      style={{ backgroundColor: "oklch(0.09 0.010 55)" }}
     >
-      <div className="max-w-7xl mx-auto">
+      {/* Ambient glow */}
+      <div
+        className="absolute top-0 left-1/2 -translate-x-1/2 w-1/2 h-64 opacity-[0.06] pointer-events-none"
+        style={{
+          background:
+            "radial-gradient(ellipse at center top, oklch(0.60 0.14 42) 0%, transparent 70%)",
+        }}
+      />
+
+      <div className="max-w-7xl mx-auto relative z-10">
         {/* Rating hero */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="text-center mb-20"
         >
-          <div className="flex items-center justify-center gap-3 mb-6">
-            <div className="h-px w-10 bg-foreground/10" />
+          <div className="flex items-center justify-center gap-3 mb-8">
+            <div className="h-px w-10 bg-terracotta/30" />
             <span className="eyebrow">What Our Guests Say</span>
-            <div className="h-px w-10 bg-foreground/10" />
+            <div className="h-px w-10 bg-terracotta/30" />
           </div>
 
-          {/* Large rating — gold is appropriate here: it IS a gold star rating */}
-          <div className="flex items-end justify-center gap-2 mb-3">
-            <span className="heading-display font-playfair text-8xl sm:text-9xl font-bold text-gold leading-none">
-              4.4
+          {/* Large rating display — monumental */}
+          <div className="flex items-start justify-center gap-3 mb-5">
+            <span
+              className="heading-editorial font-playfair text-terracotta leading-none"
+              style={{ fontSize: "clamp(5.5rem, 14vw, 11rem)" }}
+            >
+              4.6
             </span>
-            <span className="font-playfair text-3xl text-gold mb-3">★</span>
+            <div className="flex flex-col items-start pt-4">
+              <span
+                className="font-playfair text-terracotta"
+                style={{ fontSize: "clamp(1.5rem, 3vw, 2.5rem)" }}
+              >
+                ★
+              </span>
+              <span className="font-dm text-[10px] tracking-[0.18em] uppercase text-muted-foreground mt-1 whitespace-nowrap">
+                out of 5
+              </span>
+            </div>
           </div>
 
           <div className="flex justify-center gap-1 mb-4">
-            <StarRating count={4} />
+            <StarRating count={5} />
           </div>
 
-          <p className="font-inter text-muted-foreground text-sm tracking-wide">
+          <p className="font-dm text-muted-foreground text-sm tracking-wide">
             Based on{" "}
-            <span className="text-foreground font-semibold">2,313</span> Google
+            <span className="text-foreground font-semibold">1,075</span> Google
             Reviews
           </p>
+
+          {/* Section rule breathing space */}
+          <div className="section-rule max-w-xs mx-auto mt-10" />
         </motion.div>
 
         {/* Reviews grid */}
@@ -116,32 +132,32 @@ export function ReviewsSection() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-60px" }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6"
+          className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6"
         >
           {reviews.map((review) => (
             <motion.div
               key={review.id}
               variants={cardVariants}
               data-ocid={`reviews.item.${review.id}`}
-              className="bg-background border border-luxury rounded-sm p-6 hover:border-gold/30 transition-all duration-300 group relative overflow-hidden"
+              className="bg-surface border border-luxury rounded-sm p-6 hover:border-terracotta/30 transition-all duration-300 group relative overflow-hidden"
             >
               {/* Decorative quote mark */}
-              <div className="absolute top-4 right-5 font-playfair text-6xl text-gold/10 font-bold leading-none select-none pointer-events-none">
+              <div className="absolute top-4 right-5 font-playfair text-6xl text-terracotta/8 font-bold leading-none select-none pointer-events-none">
                 "
               </div>
 
               {/* Header */}
               <div className="flex items-center gap-3 mb-4">
-                <div className="w-10 h-10 rounded-full bg-surface-elevated flex items-center justify-center flex-shrink-0 border border-luxury">
-                  <span className="font-inter text-xs font-semibold text-gold">
+                <div className="w-10 h-10 rounded-full bg-terracotta/15 flex items-center justify-center flex-shrink-0 border border-terracotta/20">
+                  <span className="font-dm text-xs font-bold text-terracotta">
                     {review.initials}
                   </span>
                 </div>
                 <div>
-                  <p className="font-inter text-sm font-semibold text-foreground">
+                  <p className="font-dm text-sm font-semibold text-foreground">
                     {review.name}
                   </p>
-                  <p className="font-inter text-xs text-muted-foreground">
+                  <p className="font-dm text-xs text-muted-foreground">
                     {review.date}
                   </p>
                 </div>
@@ -151,16 +167,16 @@ export function ReviewsSection() {
               </div>
 
               {/* Review text */}
-              <p className="font-inter text-sm text-muted-foreground leading-[1.8]">
+              <p className="font-dm text-sm text-muted-foreground leading-[1.8]">
                 {review.text}
               </p>
 
-              {/* Bottom accent */}
+              {/* Bottom */}
               <div className="mt-5 pt-4 border-t border-luxury/60 flex items-center justify-between">
-                <span className="font-inter text-[10px] text-muted-foreground/50 tracking-widest uppercase">
+                <span className="font-dm text-[10px] text-muted-foreground/50 tracking-widest uppercase">
                   Google Review
                 </span>
-                <div className="w-1 h-1 rounded-full bg-olive/40" />
+                <div className="w-1.5 h-1.5 rounded-full bg-terracotta/40" />
               </div>
             </motion.div>
           ))}

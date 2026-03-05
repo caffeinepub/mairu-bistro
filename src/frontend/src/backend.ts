@@ -98,15 +98,63 @@ export interface Reservation {
     partySize: bigint;
     phoneNumber: string;
 }
+export interface MenuItem {
+    id: bigint;
+    name: string;
+    description: string;
+    category: string;
+    price: number;
+}
+export interface ContactForm {
+    id: bigint;
+    name: string;
+    email: string;
+    message: string;
+}
 export interface backendInterface {
+    addMenuItem(name: string, description: string, category: string, price: number): Promise<bigint>;
+    getAllContactForms(): Promise<Array<ContactForm>>;
     getAllReservationsSortedByDateTime(): Promise<Array<Reservation>>;
     getAllReservationsSortedByGuestName(): Promise<Array<Reservation>>;
+    getContactFormById(id: bigint): Promise<ContactForm>;
+    getMenuItemById(id: bigint): Promise<MenuItem>;
+    getMenuItems(): Promise<Array<MenuItem>>;
+    getMenuItemsByCategory(category: string): Promise<Array<MenuItem>>;
     getReservationById(id: bigint): Promise<Reservation>;
     makeReservation(guestName: string, phoneNumber: string, date: string, time: string, partySize: bigint, notes: string | null): Promise<bigint>;
+    submitContactForm(name: string, email: string, message: string): Promise<bigint>;
 }
 import type { Reservation as _Reservation } from "./declarations/backend.did.d.ts";
 export class Backend implements backendInterface {
     constructor(private actor: ActorSubclass<_SERVICE>, private _uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, private _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, private processError?: (error: unknown) => never){}
+    async addMenuItem(arg0: string, arg1: string, arg2: string, arg3: number): Promise<bigint> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.addMenuItem(arg0, arg1, arg2, arg3);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.addMenuItem(arg0, arg1, arg2, arg3);
+            return result;
+        }
+    }
+    async getAllContactForms(): Promise<Array<ContactForm>> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.getAllContactForms();
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.getAllContactForms();
+            return result;
+        }
+    }
     async getAllReservationsSortedByDateTime(): Promise<Array<Reservation>> {
         if (this.processError) {
             try {
@@ -135,6 +183,62 @@ export class Backend implements backendInterface {
             return from_candid_vec_n1(this._uploadFile, this._downloadFile, result);
         }
     }
+    async getContactFormById(arg0: bigint): Promise<ContactForm> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.getContactFormById(arg0);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.getContactFormById(arg0);
+            return result;
+        }
+    }
+    async getMenuItemById(arg0: bigint): Promise<MenuItem> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.getMenuItemById(arg0);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.getMenuItemById(arg0);
+            return result;
+        }
+    }
+    async getMenuItems(): Promise<Array<MenuItem>> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.getMenuItems();
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.getMenuItems();
+            return result;
+        }
+    }
+    async getMenuItemsByCategory(arg0: string): Promise<Array<MenuItem>> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.getMenuItemsByCategory(arg0);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.getMenuItemsByCategory(arg0);
+            return result;
+        }
+    }
     async getReservationById(arg0: bigint): Promise<Reservation> {
         if (this.processError) {
             try {
@@ -160,6 +264,20 @@ export class Backend implements backendInterface {
             }
         } else {
             const result = await this.actor.makeReservation(arg0, arg1, arg2, arg3, arg4, to_candid_opt_n5(this._uploadFile, this._downloadFile, arg5));
+            return result;
+        }
+    }
+    async submitContactForm(arg0: string, arg1: string, arg2: string): Promise<bigint> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.submitContactForm(arg0, arg1, arg2);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.submitContactForm(arg0, arg1, arg2);
             return result;
         }
     }

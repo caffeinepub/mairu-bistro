@@ -8,6 +8,12 @@
 
 import { IDL } from '@icp-sdk/core/candid';
 
+export const ContactForm = IDL.Record({
+  'id' : IDL.Nat,
+  'name' : IDL.Text,
+  'email' : IDL.Text,
+  'message' : IDL.Text,
+});
 export const Reservation = IDL.Record({
   'confirmationId' : IDL.Nat,
   'date' : IDL.Text,
@@ -17,8 +23,21 @@ export const Reservation = IDL.Record({
   'partySize' : IDL.Nat,
   'phoneNumber' : IDL.Text,
 });
+export const MenuItem = IDL.Record({
+  'id' : IDL.Nat,
+  'name' : IDL.Text,
+  'description' : IDL.Text,
+  'category' : IDL.Text,
+  'price' : IDL.Float64,
+});
 
 export const idlService = IDL.Service({
+  'addMenuItem' : IDL.Func(
+      [IDL.Text, IDL.Text, IDL.Text, IDL.Float64],
+      [IDL.Nat],
+      [],
+    ),
+  'getAllContactForms' : IDL.Func([], [IDL.Vec(ContactForm)], ['query']),
   'getAllReservationsSortedByDateTime' : IDL.Func(
       [],
       [IDL.Vec(Reservation)],
@@ -29,17 +48,32 @@ export const idlService = IDL.Service({
       [IDL.Vec(Reservation)],
       ['query'],
     ),
+  'getContactFormById' : IDL.Func([IDL.Nat], [ContactForm], ['query']),
+  'getMenuItemById' : IDL.Func([IDL.Nat], [MenuItem], ['query']),
+  'getMenuItems' : IDL.Func([], [IDL.Vec(MenuItem)], ['query']),
+  'getMenuItemsByCategory' : IDL.Func(
+      [IDL.Text],
+      [IDL.Vec(MenuItem)],
+      ['query'],
+    ),
   'getReservationById' : IDL.Func([IDL.Nat], [Reservation], ['query']),
   'makeReservation' : IDL.Func(
       [IDL.Text, IDL.Text, IDL.Text, IDL.Text, IDL.Nat, IDL.Opt(IDL.Text)],
       [IDL.Nat],
       [],
     ),
+  'submitContactForm' : IDL.Func([IDL.Text, IDL.Text, IDL.Text], [IDL.Nat], []),
 });
 
 export const idlInitArgs = [];
 
 export const idlFactory = ({ IDL }) => {
+  const ContactForm = IDL.Record({
+    'id' : IDL.Nat,
+    'name' : IDL.Text,
+    'email' : IDL.Text,
+    'message' : IDL.Text,
+  });
   const Reservation = IDL.Record({
     'confirmationId' : IDL.Nat,
     'date' : IDL.Text,
@@ -49,8 +83,21 @@ export const idlFactory = ({ IDL }) => {
     'partySize' : IDL.Nat,
     'phoneNumber' : IDL.Text,
   });
+  const MenuItem = IDL.Record({
+    'id' : IDL.Nat,
+    'name' : IDL.Text,
+    'description' : IDL.Text,
+    'category' : IDL.Text,
+    'price' : IDL.Float64,
+  });
   
   return IDL.Service({
+    'addMenuItem' : IDL.Func(
+        [IDL.Text, IDL.Text, IDL.Text, IDL.Float64],
+        [IDL.Nat],
+        [],
+      ),
+    'getAllContactForms' : IDL.Func([], [IDL.Vec(ContactForm)], ['query']),
     'getAllReservationsSortedByDateTime' : IDL.Func(
         [],
         [IDL.Vec(Reservation)],
@@ -61,9 +108,22 @@ export const idlFactory = ({ IDL }) => {
         [IDL.Vec(Reservation)],
         ['query'],
       ),
+    'getContactFormById' : IDL.Func([IDL.Nat], [ContactForm], ['query']),
+    'getMenuItemById' : IDL.Func([IDL.Nat], [MenuItem], ['query']),
+    'getMenuItems' : IDL.Func([], [IDL.Vec(MenuItem)], ['query']),
+    'getMenuItemsByCategory' : IDL.Func(
+        [IDL.Text],
+        [IDL.Vec(MenuItem)],
+        ['query'],
+      ),
     'getReservationById' : IDL.Func([IDL.Nat], [Reservation], ['query']),
     'makeReservation' : IDL.Func(
         [IDL.Text, IDL.Text, IDL.Text, IDL.Text, IDL.Nat, IDL.Opt(IDL.Text)],
+        [IDL.Nat],
+        [],
+      ),
+    'submitContactForm' : IDL.Func(
+        [IDL.Text, IDL.Text, IDL.Text],
         [IDL.Nat],
         [],
       ),

@@ -1,42 +1,38 @@
-# Mairu Bistro
+# Sky Salt Cafe & Bistro
 
 ## Current State
-New project. No existing pages or components.
+The workspace contains a Mairu Bistro restaurant website with 9 sections: Hero, About, Signature Dishes, Experience, Reviews, Gallery, Reservation, Location, and Footer. It uses React + TypeScript + Tailwind CSS with Framer Motion animations and a Motoko backend for reservation form submissions.
 
 ## Requested Changes (Diff)
 
 ### Add
-- Full premium restaurant website for Mairu Bistro, Jubilee Hills, Hyderabad
-- 9 sections: Hero, About, Signature Dishes, Experience, Reviews, Gallery, Reservation, Location, Footer
-- Sticky transparent navigation bar
-- Smooth scroll and Framer Motion animations
-- Dark luxury theme: charcoal black background, warm beige/cream text, olive green or gold accents
-- Elegant serif headings, modern sans-serif body text, large cinematic hero typography
-- Mobile-first fully responsive layout
+- New brand identity: Sky Salt Cafe & Bistro
+- New tagline: "A Cozy Escape for Great Food & Conversations"
+- New menu items: Peri Peri Chicken Pizza, Chicken Dim Sum, White Sauce Pasta, Jalapeño Kebabs, Alfredo Penne Pasta, Chicken Fingers, Chilli Cheese Toast, Mocha
+- New contact: Phone +91 89192 96510, Address Road No. 36, CBI Colony, Jubilee Hills, Hyderabad, Telangana 500033
+- Opening hours: 11:00 AM – 11:00 PM
+- Rating: 4.6 stars from 1075 reviews
+- Services: Dine-in, Takeaway, Delivery
+- New AI-generated imagery: hero background, food cards, gallery grid (food, coffee, outdoor seating, interior)
+- Terracotta/olive green accent color scheme with deep charcoal and warm cream
 
 ### Modify
-- None (new project)
+- All brand references from Mairu Bistro → Sky Salt Cafe & Bistro
+- Color palette: deep charcoal primary, warm cream secondary, terracotta/olive green accent
+- Menu section: replace all dishes with Sky Salt highlights
+- Reviews section: update to 4.6★ / 1075 reviews with new testimonial copy
+- Experience section: outdoor seating under warm lights, cozy aesthetic, friendly service, evening hangouts/dates
+- About section: relaxed bistro in Jubilee Hills, cozy/aesthetic dining, evenings/dates/casual meetups
+- Location section: update address and map embed
+- Footer: update all contact details and opening hours
 
 ### Remove
-- None (new project)
+- All Mairu Bistro branding, Telugu name, LGBTQ+ note, old menu items, old address/phone
 
 ## Implementation Plan
-
-### Backend
-- Minimal backend: store reservation form submissions (name, date, time, phone, party size)
-- No auth required
-
-### Frontend Sections
-1. **Navigation** — Sticky transparent nav, scrolls to each section, logo "Mairu Bistro", links: About, Menu, Experience, Reviews, Gallery, Reserve
-2. **Hero** — Full-screen background image, "Mairu Bistro" heading with tagline "Where Cozy Vibes Meet Flavorful Bites", two CTAs: "Reserve a Table" (scroll to reservation), "View Menu" (scroll to dishes)
-3. **About** — Two-column layout: text about the bistro story + ambience image. Address, hours, LGBTQ+ friendly badge.
-4. **Signature Dishes** — Grid of 6 premium food cards with generated food images, dish name, short description
-5. **Experience** — Feature highlight grid: Cozy Ambience, Outdoor Garden Seating, Perfect for Brunch/Dates, Friendly Hospitality
-6. **Reviews** — 4.4 star rating badge, testimonial card carousel with 5 sample reviews
-7. **Gallery** — Masonry-style image grid (food, drinks, ambience, outdoor seating)
-8. **Reservation** — CTA section with phone number +91 91071 46999 and inline reservation form (submits to backend)
-9. **Location** — Address display + embedded Google Maps iframe for Jubilee Hills address
-10. **Footer** — Contact info, social icons (Instagram, Facebook, Twitter), opening hours 11 AM – 11:45 PM, services list
-
-### Assets
-- Generate: hero background, food images for 6 signature dishes, ambience/gallery images
+1. Rename project to Sky Salt Cafe & Bistro
+2. Generate AI images: hero bg, 6 food card images, 8 gallery images (food/coffee/outdoor/interior)
+3. Update Motoko backend reservation handler (restaurant name, contact info)
+4. Rebuild all frontend sections with new brand, content, color tokens, and generated images
+5. Apply Framer Motion scroll animations, sticky navbar, hover effects
+6. Ensure mobile-first responsive layout across all sections

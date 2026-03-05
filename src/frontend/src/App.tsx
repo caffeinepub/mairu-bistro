@@ -29,10 +29,10 @@ export default function App() {
         position="bottom-right"
         toastOptions={{
           style: {
-            background: "oklch(0.14 0.008 60)",
-            border: "1px solid oklch(0.25 0.008 60)",
-            color: "oklch(0.92 0.018 80)",
-            fontFamily: "Inter, system-ui, sans-serif",
+            background: "oklch(0.13 0.010 55)",
+            border: "1px solid oklch(0.24 0.008 55)",
+            color: "oklch(0.93 0.016 78)",
+            fontFamily: "'DM Sans', system-ui, sans-serif",
           },
         }}
       />

@@ -17,8 +17,8 @@ export default {
     extend: {
       fontFamily: {
         playfair: ['"Playfair Display"', 'Georgia', 'serif'],
-        inter: ['Inter', 'system-ui', 'sans-serif'],
-        sans: ['Inter', 'system-ui', 'sans-serif'],
+        dm: ['"DM Sans"', 'system-ui', 'sans-serif'],
+        sans: ['"DM Sans"', 'system-ui', 'sans-serif'],
         serif: ['"Playfair Display"', 'Georgia', 'serif'],
       },
       colors: {
@@ -62,8 +62,9 @@ export default {
           4: "oklch(var(--chart-4))",
           5: "oklch(var(--chart-5))",
         },
-        gold: "oklch(var(--color-accent-gold))",
-        olive: "oklch(var(--color-accent-olive))",
+        terracotta: "oklch(var(--color-terracotta))",
+        olive: "oklch(var(--color-olive))",
+        cream: "oklch(var(--color-cream))",
         surface: {
           DEFAULT: "oklch(var(--color-surface))",
           elevated: "oklch(var(--color-surface-elevated))",

@@ -9,7 +9,14 @@ import {
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { useActor } from "@/hooks/useActor";
-import { AlertCircle, CheckCircle, Loader2, Phone } from "lucide-react";
+import {
+  AlertCircle,
+  CheckCircle,
+  Clock,
+  Loader2,
+  MapPin,
+  Phone,
+} from "lucide-react";
 import { motion } from "motion/react";
 import { useState } from "react";
 import { toast } from "sonner";
@@ -96,296 +103,372 @@ export function ReservationSection() {
   return (
     <section
       id="reservation"
-      className="pt-28 pb-24 md:pt-36 md:pb-32 px-4 sm:px-6 lg:px-8 bg-surface relative overflow-hidden section-fade-top"
+      className="py-24 md:py-32 px-4 sm:px-6 lg:px-8 bg-surface relative overflow-hidden"
     >
-      {/* Decorative background element */}
+      {/* Decorative glow */}
       <div
-        className="absolute inset-0 opacity-[0.02]"
+        className="absolute inset-0 opacity-[0.025] pointer-events-none"
         style={{
           backgroundImage:
-            "radial-gradient(circle at 30% 50%, oklch(75% 0.10 80) 0%, transparent 60%)",
+            "radial-gradient(circle at 70% 50%, oklch(0.60 0.14 42) 0%, transparent 55%)",
         }}
       />
 
-      <div className="max-w-3xl mx-auto relative z-10">
-        {/* Header */}
+      <div className="max-w-7xl mx-auto relative z-10">
+        {/* Section header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-12"
+          className="text-center mb-14"
         >
           <div className="flex items-center justify-center gap-3 mb-5">
-            <div className="h-px w-10 bg-foreground/10" />
+            <div className="h-px w-10 bg-terracotta/30" />
             <span className="eyebrow">Book a Table</span>
-            <div className="h-px w-10 bg-foreground/10" />
+            <div className="h-px w-10 bg-terracotta/30" />
           </div>
-
           <h2 className="heading-section font-playfair text-4xl sm:text-5xl md:text-6xl font-bold text-foreground mb-4">
             Reserve Your Table
           </h2>
-          <p className="font-inter text-muted-foreground mb-6">
-            Call us at{" "}
+          <p className="font-dm text-muted-foreground">
+            Fill in the form or call us at{" "}
             <a
-              href="tel:+919107146999"
-              className="text-gold hover:text-gold/80 transition-colors font-medium"
+              href="tel:+918919296510"
+              className="text-terracotta hover:text-terracotta/80 transition-colors font-semibold"
             >
-              +91 91071 46999
-            </a>{" "}
-            or fill in the form below.
+              +91 89192 96510
+            </a>
           </p>
-
-          {/* Phone CTA */}
-          <a
-            href="tel:+919107146999"
-            className="inline-flex items-center gap-2 font-inter text-sm font-medium px-6 py-3 border border-gold/40 text-gold rounded-sm hover:bg-gold/10 transition-all duration-200 mb-6"
-          >
-            <Phone size={14} />
-            Call to Reserve
-          </a>
         </motion.div>
 
-        {/* Success state */}
-        {status === "success" && (
-          <motion.div
-            data-ocid="reservation.success_state"
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            className="bg-background border border-olive/40 rounded-sm p-8 text-center mb-8"
-          >
-            <CheckCircle size={40} className="text-olive mx-auto mb-4" />
-            <h3 className="font-playfair text-2xl text-foreground font-semibold mb-2">
-              Reservation Confirmed!
-            </h3>
-            <p className="font-inter text-muted-foreground mb-3">
-              Your table has been reserved. We look forward to welcoming you.
-            </p>
-            <p className="font-inter text-sm font-medium text-gold">
-              Confirmation ID: #{confirmationId}
-            </p>
-            <button
-              type="button"
-              onClick={() => setStatus("idle")}
-              className="mt-5 font-inter text-sm text-muted-foreground hover:text-foreground transition-colors"
-            >
-              Make another reservation
-            </button>
-          </motion.div>
-        )}
-
-        {/* Form */}
-        {status !== "success" && (
-          <motion.form
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            onSubmit={handleSubmit}
-            className="bg-background border border-luxury rounded-sm p-6 md:p-8"
-            noValidate
-          >
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-              {/* Full Name */}
-              <div className="sm:col-span-2">
-                <Label
-                  htmlFor="guestName"
-                  className="font-inter text-sm font-medium text-muted-foreground mb-2 block"
-                >
-                  Full Name <span className="text-gold">*</span>
-                </Label>
-                <Input
-                  id="guestName"
-                  data-ocid="reservation.input"
-                  type="text"
-                  placeholder="Your full name"
-                  value={form.guestName}
-                  onChange={(e) => handleChange("guestName", e.target.value)}
-                  className="bg-surface border-luxury text-foreground placeholder:text-muted-foreground/50 focus:border-gold/60 focus:ring-gold/20 font-inter"
-                  autoComplete="name"
-                />
-                {errors.guestName && (
-                  <p className="font-inter text-xs text-destructive mt-1">
-                    {errors.guestName}
-                  </p>
-                )}
-              </div>
-
-              {/* Phone */}
-              <div>
-                <Label
-                  htmlFor="phoneNumber"
-                  className="font-inter text-sm font-medium text-muted-foreground mb-2 block"
-                >
-                  Phone Number <span className="text-gold">*</span>
-                </Label>
-                <Input
-                  id="phoneNumber"
-                  type="tel"
-                  placeholder="+91 XXXXX XXXXX"
-                  value={form.phoneNumber}
-                  onChange={(e) => handleChange("phoneNumber", e.target.value)}
-                  className="bg-surface border-luxury text-foreground placeholder:text-muted-foreground/50 focus:border-gold/60 font-inter"
-                  autoComplete="tel"
-                />
-                {errors.phoneNumber && (
-                  <p className="font-inter text-xs text-destructive mt-1">
-                    {errors.phoneNumber}
-                  </p>
-                )}
-              </div>
-
-              {/* Party Size */}
-              <div>
-                <Label
-                  htmlFor="partySize"
-                  className="font-inter text-sm font-medium text-muted-foreground mb-2 block"
-                >
-                  Party Size <span className="text-gold">*</span>
-                </Label>
-                <Select
-                  value={form.partySize}
-                  onValueChange={(v) => handleChange("partySize", v)}
-                >
-                  <SelectTrigger
-                    id="partySize"
-                    data-ocid="reservation.select"
-                    className="bg-surface border-luxury text-foreground focus:border-gold/60 font-inter"
-                  >
-                    <SelectValue placeholder="Select guests" />
-                  </SelectTrigger>
-                  <SelectContent className="bg-surface border-luxury">
-                    {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((n) => (
-                      <SelectItem
-                        key={n}
-                        value={String(n)}
-                        className="font-inter text-foreground"
-                      >
-                        {n === 10 ? "10+" : n} {n === 1 ? "Guest" : "Guests"}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-                {errors.partySize && (
-                  <p className="font-inter text-xs text-destructive mt-1">
-                    {errors.partySize}
-                  </p>
-                )}
-              </div>
-
-              {/* Date */}
-              <div>
-                <Label
-                  htmlFor="date"
-                  className="font-inter text-sm font-medium text-muted-foreground mb-2 block"
-                >
-                  Date <span className="text-gold">*</span>
-                </Label>
-                <Input
-                  id="date"
-                  type="date"
-                  min={today}
-                  value={form.date}
-                  onChange={(e) => handleChange("date", e.target.value)}
-                  className="bg-surface border-luxury text-foreground focus:border-gold/60 font-inter [color-scheme:dark]"
-                />
-                {errors.date && (
-                  <p className="font-inter text-xs text-destructive mt-1">
-                    {errors.date}
-                  </p>
-                )}
-              </div>
-
-              {/* Time */}
-              <div>
-                <Label
-                  htmlFor="time"
-                  className="font-inter text-sm font-medium text-muted-foreground mb-2 block"
-                >
-                  Time <span className="text-gold">*</span>
-                </Label>
-                <Input
-                  id="time"
-                  type="time"
-                  min="11:00"
-                  max="23:45"
-                  value={form.time}
-                  onChange={(e) => handleChange("time", e.target.value)}
-                  className="bg-surface border-luxury text-foreground focus:border-gold/60 font-inter [color-scheme:dark]"
-                />
-                {errors.time && (
-                  <p className="font-inter text-xs text-destructive mt-1">
-                    {errors.time}
-                  </p>
-                )}
-              </div>
-
-              {/* Special Requests */}
-              <div className="sm:col-span-2">
-                <Label
-                  htmlFor="notes"
-                  className="font-inter text-sm font-medium text-muted-foreground mb-2 block"
-                >
-                  Special Requests{" "}
-                  <span className="text-muted-foreground/50 text-xs">
-                    (Optional)
-                  </span>
-                </Label>
-                <Textarea
-                  id="notes"
-                  placeholder="Dietary restrictions, birthday celebrations, preferred seating..."
-                  value={form.notes}
-                  onChange={(e) => handleChange("notes", e.target.value)}
-                  className="bg-surface border-luxury text-foreground placeholder:text-muted-foreground/50 focus:border-gold/60 font-inter min-h-[100px] resize-none"
-                />
-              </div>
-            </div>
-
-            {/* Error state */}
-            {status === "error" && (
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+          {/* Form — takes 2 cols */}
+          <div className="lg:col-span-2">
+            {/* Success state */}
+            {status === "success" && (
               <motion.div
-                data-ocid="reservation.error_state"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                className="mt-4 flex items-center gap-2 p-3 bg-destructive/10 border border-destructive/30 rounded-sm"
+                data-ocid="reservation.success_state"
+                initial={{ opacity: 0, scale: 0.96 }}
+                animate={{ opacity: 1, scale: 1 }}
+                className="bg-background border border-olive/40 rounded-sm p-8 text-center"
               >
-                <AlertCircle
-                  size={14}
-                  className="text-destructive flex-shrink-0"
-                />
-                <p className="font-inter text-xs text-destructive">
-                  Something went wrong. Please call +91 91071 46999 or try
-                  again.
+                <CheckCircle size={44} className="text-olive mx-auto mb-4" />
+                <h3 className="font-playfair text-2xl text-foreground font-semibold mb-2">
+                  Reservation Confirmed!
+                </h3>
+                <p className="font-dm text-muted-foreground mb-3">
+                  Your table has been reserved. We look forward to welcoming
+                  you.
                 </p>
+                <p className="font-dm text-sm font-semibold text-terracotta">
+                  Confirmation ID: #{confirmationId}
+                </p>
+                <button
+                  type="button"
+                  onClick={() => setStatus("idle")}
+                  className="mt-5 font-dm text-sm text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  Make another reservation →
+                </button>
               </motion.div>
             )}
 
-            {/* Submit */}
-            <button
-              type="submit"
-              data-ocid="reservation.submit_button"
-              disabled={status === "loading"}
-              className="mt-6 w-full font-inter font-medium text-base py-4 bg-gold text-background rounded-sm hover:bg-gold/90 transition-all duration-200 tracking-wide disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center gap-2"
-            >
-              {status === "loading" ? (
-                <>
-                  <Loader2
-                    size={16}
-                    className="animate-spin"
-                    data-ocid="reservation.loading_state"
-                  />
-                  Confirming Reservation...
-                </>
-              ) : (
-                "Confirm Reservation"
-              )}
-            </button>
+            {/* Form */}
+            {status !== "success" && (
+              <motion.form
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.1 }}
+                onSubmit={handleSubmit}
+                className="bg-background border border-luxury rounded-sm p-6 md:p-8"
+                noValidate
+              >
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                  {/* Full Name */}
+                  <div className="sm:col-span-2">
+                    <Label
+                      htmlFor="guestName"
+                      className="font-dm text-sm font-medium text-muted-foreground mb-2 block"
+                    >
+                      Full Name <span className="text-terracotta">*</span>
+                    </Label>
+                    <Input
+                      id="guestName"
+                      data-ocid="reservation.name.input"
+                      type="text"
+                      placeholder="Your full name"
+                      value={form.guestName}
+                      onChange={(e) =>
+                        handleChange("guestName", e.target.value)
+                      }
+                      className="bg-surface border-luxury text-foreground placeholder:text-muted-foreground/50 focus:border-terracotta/60 font-dm"
+                      autoComplete="name"
+                    />
+                    {errors.guestName && (
+                      <p className="font-dm text-xs text-destructive mt-1.5">
+                        {errors.guestName}
+                      </p>
+                    )}
+                  </div>
 
-            <p className="font-inter text-xs text-muted-foreground/60 text-center mt-3">
-              We'll confirm your reservation via phone. 11 AM – 11:45 PM daily.
-            </p>
-          </motion.form>
-        )}
+                  {/* Phone */}
+                  <div>
+                    <Label
+                      htmlFor="phoneNumber"
+                      className="font-dm text-sm font-medium text-muted-foreground mb-2 block"
+                    >
+                      Phone Number <span className="text-terracotta">*</span>
+                    </Label>
+                    <Input
+                      id="phoneNumber"
+                      data-ocid="reservation.phone.input"
+                      type="tel"
+                      placeholder="+91 XXXXX XXXXX"
+                      value={form.phoneNumber}
+                      onChange={(e) =>
+                        handleChange("phoneNumber", e.target.value)
+                      }
+                      className="bg-surface border-luxury text-foreground placeholder:text-muted-foreground/50 focus:border-terracotta/60 font-dm"
+                      autoComplete="tel"
+                    />
+                    {errors.phoneNumber && (
+                      <p className="font-dm text-xs text-destructive mt-1.5">
+                        {errors.phoneNumber}
+                      </p>
+                    )}
+                  </div>
+
+                  {/* Party Size */}
+                  <div>
+                    <Label
+                      htmlFor="partySize"
+                      className="font-dm text-sm font-medium text-muted-foreground mb-2 block"
+                    >
+                      Party Size <span className="text-terracotta">*</span>
+                    </Label>
+                    <Select
+                      value={form.partySize}
+                      onValueChange={(v) => handleChange("partySize", v)}
+                    >
+                      <SelectTrigger
+                        id="partySize"
+                        data-ocid="reservation.partysize.select"
+                        className="bg-surface border-luxury text-foreground focus:border-terracotta/60 font-dm"
+                      >
+                        <SelectValue placeholder="Select guests" />
+                      </SelectTrigger>
+                      <SelectContent className="bg-surface border-luxury">
+                        {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((n) => (
+                          <SelectItem
+                            key={n}
+                            value={String(n)}
+                            className="font-dm text-foreground"
+                          >
+                            {n === 10 ? "10+" : n}{" "}
+                            {n === 1 ? "Guest" : "Guests"}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                    {errors.partySize && (
+                      <p className="font-dm text-xs text-destructive mt-1.5">
+                        {errors.partySize}
+                      </p>
+                    )}
+                  </div>
+
+                  {/* Date */}
+                  <div>
+                    <Label
+                      htmlFor="date"
+                      className="font-dm text-sm font-medium text-muted-foreground mb-2 block"
+                    >
+                      Date <span className="text-terracotta">*</span>
+                    </Label>
+                    <Input
+                      id="date"
+                      data-ocid="reservation.date.input"
+                      type="date"
+                      min={today}
+                      value={form.date}
+                      onChange={(e) => handleChange("date", e.target.value)}
+                      className="bg-surface border-luxury text-foreground focus:border-terracotta/60 font-dm [color-scheme:dark]"
+                    />
+                    {errors.date && (
+                      <p className="font-dm text-xs text-destructive mt-1.5">
+                        {errors.date}
+                      </p>
+                    )}
+                  </div>
+
+                  {/* Time */}
+                  <div>
+                    <Label
+                      htmlFor="time"
+                      className="font-dm text-sm font-medium text-muted-foreground mb-2 block"
+                    >
+                      Time <span className="text-terracotta">*</span>
+                    </Label>
+                    <Input
+                      id="time"
+                      data-ocid="reservation.time.input"
+                      type="time"
+                      min="11:00"
+                      max="23:00"
+                      value={form.time}
+                      onChange={(e) => handleChange("time", e.target.value)}
+                      className="bg-surface border-luxury text-foreground focus:border-terracotta/60 font-dm [color-scheme:dark]"
+                    />
+                    {errors.time && (
+                      <p className="font-dm text-xs text-destructive mt-1.5">
+                        {errors.time}
+                      </p>
+                    )}
+                  </div>
+
+                  {/* Special Requests */}
+                  <div className="sm:col-span-2">
+                    <Label
+                      htmlFor="notes"
+                      className="font-dm text-sm font-medium text-muted-foreground mb-2 block"
+                    >
+                      Special Requests{" "}
+                      <span className="text-muted-foreground/50 text-xs">
+                        (Optional)
+                      </span>
+                    </Label>
+                    <Textarea
+                      id="notes"
+                      data-ocid="reservation.notes.textarea"
+                      placeholder="Dietary restrictions, birthday celebrations, preferred seating..."
+                      value={form.notes}
+                      onChange={(e) => handleChange("notes", e.target.value)}
+                      className="bg-surface border-luxury text-foreground placeholder:text-muted-foreground/50 focus:border-terracotta/60 font-dm min-h-[100px] resize-none"
+                    />
+                  </div>
+                </div>
+
+                {/* Error state */}
+                {status === "error" && (
+                  <motion.div
+                    data-ocid="reservation.error_state"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    className="mt-4 flex items-center gap-2 p-3 bg-destructive/10 border border-destructive/30 rounded-sm"
+                  >
+                    <AlertCircle
+                      size={14}
+                      className="text-destructive flex-shrink-0"
+                    />
+                    <p className="font-dm text-xs text-destructive">
+                      Something went wrong. Please call +91 89192 96510 or try
+                      again.
+                    </p>
+                  </motion.div>
+                )}
+
+                {/* Submit */}
+                <button
+                  type="submit"
+                  data-ocid="reservation.submit_button"
+                  disabled={status === "loading"}
+                  className="mt-6 w-full font-dm font-semibold text-base py-4 bg-terracotta text-white rounded-sm hover:bg-terracotta/85 transition-all duration-200 tracking-wide disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                >
+                  {status === "loading" ? (
+                    <>
+                      <Loader2
+                        size={16}
+                        className="animate-spin"
+                        data-ocid="reservation.loading_state"
+                      />
+                      Confirming Reservation...
+                    </>
+                  ) : (
+                    "Confirm Reservation"
+                  )}
+                </button>
+
+                <p className="font-dm text-xs text-muted-foreground/60 text-center mt-3">
+                  We'll confirm your reservation via phone. Open 11 AM – 11 PM
+                  daily.
+                </p>
+              </motion.form>
+            )}
+          </div>
+
+          {/* Right info card */}
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.65, delay: 0.15 }}
+            className="bg-terracotta rounded-sm p-7 text-white flex flex-col gap-6 lg:sticky lg:top-24"
+          >
+            <div>
+              <h3 className="font-playfair text-2xl font-bold text-white mb-1">
+                Sky Salt
+              </h3>
+              <p className="font-dm text-sm text-white/70">Cafe &amp; Bistro</p>
+            </div>
+
+            <div className="h-px bg-white/20" />
+
+            <div className="flex items-start gap-3">
+              <Phone size={16} className="text-white/60 flex-shrink-0 mt-0.5" />
+              <div>
+                <p className="font-dm text-xs text-white/60 mb-0.5">Phone</p>
+                <a
+                  href="tel:+918919296510"
+                  className="font-dm text-sm font-semibold text-white hover:text-white/80 transition-colors"
+                >
+                  +91 89192 96510
+                </a>
+              </div>
+            </div>
+
+            <div className="flex items-start gap-3">
+              <Clock size={16} className="text-white/60 flex-shrink-0 mt-0.5" />
+              <div>
+                <p className="font-dm text-xs text-white/60 mb-0.5">
+                  Opening Hours
+                </p>
+                <p className="font-dm text-sm font-semibold text-white">
+                  11:00 AM – 11:00 PM
+                </p>
+                <p className="font-dm text-xs text-white/60 mt-0.5">
+                  Every day
+                </p>
+              </div>
+            </div>
+
+            <div className="flex items-start gap-3">
+              <MapPin
+                size={16}
+                className="text-white/60 flex-shrink-0 mt-0.5"
+              />
+              <div>
+                <p className="font-dm text-xs text-white/60 mb-0.5">Address</p>
+                <p className="font-dm text-sm font-semibold text-white leading-relaxed">
+                  Road No. 36, CBI Colony
+                  <br />
+                  Jubilee Hills, Hyderabad
+                </p>
+              </div>
+            </div>
+
+            <div className="h-px bg-white/20" />
+
+            <a
+              href="tel:+918919296510"
+              className="flex items-center justify-center gap-2 font-dm text-sm font-semibold py-3 bg-white/15 hover:bg-white/25 rounded-sm transition-colors duration-200 text-white"
+            >
+              <Phone size={14} />
+              Call to Reserve
+            </a>
+          </motion.div>
+        </div>
       </div>
     </section>
   );
